@@ -51,8 +51,8 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
     required: true,
-    min: 18, // Minimum age requirement
-    max: 100, // Maximum age requirement
+    min: 12, 
+    max: 100, 
   },
   address: {
     type: String,
@@ -61,19 +61,19 @@ const userSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Automatically set the creation date
+    default: Date.now, 
   },
 });
 
-// Hash password before saving
+
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next(); // Skip if password is not modified
-  const salt = await bcrypt.genSalt(10); // Generate a salt
-  this.password = await bcrypt.hash(this.password, salt); // Hash the password
+  if (!this.isModified('password')) return next();
+  const salt = await bcrypt.genSalt(10); 
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-// Compare password for login
+
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

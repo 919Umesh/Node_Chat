@@ -69,22 +69,30 @@ const handleLoginUser = async (req, res) => {
         }
 
         const user = await Users.findOne({ email });
-
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
         }
 
-        if (user.password !== password) {
-            return res.status(400).json({ status: 400, message: "Invalid password" });
-        }
+    const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+      return res.status(400).json({ status: 400, message: 'Invalid password' });
+       }
 
         const token = generateToken({ id: user._id, email: user.email });
-        res.status(200).json({
-            status: 200,
-            message: 'Login successful',
-            user: { id: user._id, name: user.name, email: user.email },
-            token,
-        });
+        
+       res.status(200).json({
+        status: 200,
+        message: 'Login successful',
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          gender: user.gender,
+          age: user.age,
+          address: user.address,
+        },
+        token,
+      });
     } catch (error) {
         console.error(error);
         res.status(500).json({ status: 500, message: 'Server error, please try again later' });
