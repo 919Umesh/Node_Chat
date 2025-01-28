@@ -47,5 +47,5 @@ app.use('/users', userRouter);
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on https://node-chat-mvlu.onrender.com:${port}`);
 });
