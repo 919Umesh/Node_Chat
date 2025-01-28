@@ -1,4 +1,4 @@
-const Users = require('../models/login');
+const User = require('../models/login');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'MIIEpAIBAAKCAQEAwICVGZOt79JZRG9d7NslU3aPVRzC2rtJJTq7G8848';
 
@@ -7,7 +7,6 @@ const handleCreateUser = async (req, res) => {
     
         const { name, email, password, gender, age, address } = req.body;
 
-    
         if (!name || !email || !password || !gender || !age || !address) {
         return res.status(400).json({ status: 400, message: 'All fields are required' });
       }
@@ -20,7 +19,7 @@ const handleCreateUser = async (req, res) => {
 
 
     const newUser = new User({ name, email, password, gender, age, address });
-    
+
     await newUser.save();
 
     res.status(201).json({
@@ -36,7 +35,7 @@ const handleCreateUser = async (req, res) => {
 
 const handleGetAllUsers = async (req, res) => {
     try {
-        const users = await Users.find({}, { password: 0 });
+        const users = await User.find({}, { password: 0 });
 
         if (users.length === 0) {
             return res.status(404).json({
@@ -68,13 +67,12 @@ const handleLoginUser = async (req, res) => {
             return res.status(400).json({ status: 400, message: "Email and password are required" });
         }
 
-        const user = await Users.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
         }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
+      if (user.password !== password) {
       return res.status(400).json({ status: 400, message: 'Invalid password' });
        }
 
