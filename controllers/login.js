@@ -20,9 +20,9 @@ const handleCreateUser = async (req, res) => {
 
 
     const newUser = new User({ name, email, password, gender, age, address });
+    
     await newUser.save();
 
-    
     res.status(201).json({
         status: 201,
         message: 'User created successfully',
