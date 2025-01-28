@@ -4,30 +4,30 @@ const SECRET_KEY = 'MIIEpAIBAAKCAQEAwICVGZOt79JZRG9d7NslU3aPVRzC2rtJJTq7G8848';
 
 const handleCreateUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+    
+        const { name, email, password, gender, age, address } = req.body;
 
-        if (!name || !email || !password) {
-            return res.status(400).json({ status: 400, message: "Some fields are missing" });
-        }
+    
+        if (!name || !email || !password || !gender || !age || !address) {
+        return res.status(400).json({ status: 400, message: 'All fields are required' });
+      }
 
-        const existingUser = await Users.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: "User with this email already exists" });
-        }
+   
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ status: 400, message: 'User with this email already exists' });
+    }
 
-        const newUser = new Users({
-            name,
-            email,
-            password,
-        });
 
-        await newUser.save();
+    const newUser = new User({ name, email, password, gender, age, address });
+    await newUser.save();
 
-        res.status(201).json({
-            status: 201,
-            message: 'User created successfully',
-            user: newUser,
-        });
+    
+    res.status(201).json({
+        status: 201,
+        message: 'User created successfully',
+        user:newUser
+      })
     } catch (error) {
         console.error(error);
         res.status(500).json({ status: 500, message: 'Server error, please try again later' });
