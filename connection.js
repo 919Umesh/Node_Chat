@@ -1,3 +1,4 @@
+require('dotenv').config();
 connectMongoDB(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB successfully!');
