@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const { handleCreateUser, handleGetAllUsers, handleLoginUser } = require('../controllers/login');
 const { authenticateToken } = require('../middlewares/authorization');
 
