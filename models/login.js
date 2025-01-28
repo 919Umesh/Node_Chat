@@ -1,6 +1,3 @@
-
-
-
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -37,6 +34,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  profileImage: {
+    type: String,
+    required: false
   },
   createdAt: {
     type: Date,

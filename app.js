@@ -6,6 +6,9 @@ const app = express();
 const port =  4000;
 
 app.use(express.json());
+
+app.use('/userProfile', express.static('userProfile'));
+
 app.use(express.urlencoded({ extended: true }));
 
 

@@ -1,11 +1,14 @@
 const User = require('../models/login');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const userProfile = multer({ dest: 'userProfile/' });
 const SECRET_KEY = 'MIIEpAIBAAKCAQEAwICVGZOt79JZRG9d7NslU3aPVRzC2rtJJTq7G8848';
 
 const handleCreateUser = async (req, res) => {
     try {
     
         const { name, email, password, gender, age, address } = req.body;
+        const profileImage = req.file ? req.file.path : null;
 
         if (!name || !email || !password || !gender || !age || !address) {
         return res.status(400).json({ status: 400, message: 'All fields are required' });
@@ -15,10 +18,10 @@ const handleCreateUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ status: 400, message: 'User with this email already exists' });
-    }
+    }   
 
 
-    const newUser = new User({ name, email, password, gender, age, address });
+    const newUser = new User({ name, email, password, gender, age, address ,profileImage});
 
     await newUser.save();
 
