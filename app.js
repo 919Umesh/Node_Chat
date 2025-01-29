@@ -19,7 +19,7 @@ app.use('/users', userRouter);
 app.use('/notes', notesRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running on https://node-chat-mvlu.onrender.com:${port}`);
+  console.log(`Server is running in https://node-chat-mvlu.onrender.com:${port}`);
 });
 
 

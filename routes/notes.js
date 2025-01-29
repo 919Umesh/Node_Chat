@@ -31,18 +31,15 @@ const upload = multer({
 });
 
 router.post('/upload', 
-    authenticateToken, 
     upload.single('notesFile'), 
     handleCreateNotes
 );
 
 router.get('/all', 
-    authenticateToken, 
     handleGetNotes
 );
 
 router.get('/semester/:semester', 
-    authenticateToken, 
     handleGetNotesBySemester
 );
 
