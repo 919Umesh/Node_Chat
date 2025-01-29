@@ -1,5 +1,6 @@
 const Notes = require('../models/notes');
 const multer = require('multer');
+const notes = multer({ dest: 'notes/' });
 const path = require('path');
 
 const handleCreateNotes = async (req, res) => {
