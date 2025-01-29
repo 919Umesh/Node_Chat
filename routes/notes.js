@@ -38,9 +38,9 @@ router.get('/all', handleGetNotes);
 
 router.get('/semesters', handleGetSemesters);
 
-router.get('/semesters/:semester/subjects', handleGetSubjectsBySemester);
+router.get('/subjects', handleGetSubjectsBySemester);
 
-router.get('/semesters/:semester/subjects/:subject/notes', handleGetNotesBySubject);
+router.get('/notes', handleGetNotesBySubject);
 
 
 

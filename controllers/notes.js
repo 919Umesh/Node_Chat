@@ -100,7 +100,14 @@ const handleGetSemesters = async (req, res) => {
 
 const handleGetSubjectsBySemester = async (req, res) => {
     try {
-        const { semester } = req.params;
+        const { semester } = req.query;
+        if (!semester) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Semester query parameter is required',
+            });
+        }
+
         const subjects = await Notes.distinct('subject', { semester });
 
         if (subjects.length === 0) {
@@ -125,9 +132,17 @@ const handleGetSubjectsBySemester = async (req, res) => {
 };
 
 
+
 const handleGetNotesBySubject = async (req, res) => {
     try {
-        const { semester, subject } = req.params;
+        const { semester, subject } = req.query;
+        if (!semester || !subject) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Both semester and subject query parameters are required',
+            });
+        }
+
         const notes = await Notes.find({ semester, subject });
 
         if (notes.length === 0) {
