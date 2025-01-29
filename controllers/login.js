@@ -47,20 +47,19 @@ const handleGetAllUsers = async (req, res) => {
             });
         }
         
-
-        // const userProfile = users.map(product => {
+        // const userProfile = users.map(user => {
         //     return {
-        //         ...product._doc, 
-        //         productImage: product.productImage
-        //             ? `${req.protocol}://${req.get('host')}/${product.productImage.replace(/\\/g, '/')}`
+        //         ...user._doc, 
+        //         profileImage: user.profileImage
+        //             ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
         //             : null,
         //     };
         // });
         const userProfile = users.map(user => {
             return {
-                ...user._doc, 
+                ...user._doc,
                 profileImage: user.profileImage
-                    ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
+                    ? `${req.protocol}://${req.get('host')}/userProfile/${user.profileImage}`
                     : null,
             };
         });
