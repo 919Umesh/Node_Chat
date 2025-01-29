@@ -9,6 +9,7 @@ const port =  4000;
 app.use(express.json());
 
 app.use('/userProfile', express.static('userProfile'));
+app.use('/notes', express.static('notes'));
 
 app.use(express.urlencoded({ extended: true }));
 
