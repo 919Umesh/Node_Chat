@@ -71,15 +71,69 @@ const handleGetNotes = async (req, res) => {
     }
 };
 
-const handleGetNotesBySemester = async (req, res) => {
+
+const handleGetSemesters = async (req, res) => {
+    try {
+        const semesters = await Notes.distinct('semester');
+
+        if (semesters.length === 0) {
+            return res.status(404).json({
+                status: 404,
+                message: 'No semesters found',
+            });
+        }
+
+        res.status(200).json({
+            status: 200,
+            message: 'Semesters retrieved successfully',
+            semesters: semesters
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ 
+            status: 500, 
+            message: 'Server error, please try again later' 
+        });
+    }
+};
+
+
+const handleGetSubjectsBySemester = async (req, res) => {
     try {
         const { semester } = req.params;
-        const notes = await Notes.find({ semester });
+        const subjects = await Notes.distinct('subject', { semester });
+
+        if (subjects.length === 0) {
+            return res.status(404).json({
+                status: 404,
+                message: `No subjects found for semester ${semester}`,
+            });
+        }
+
+        res.status(200).json({
+            status: 200,
+            message: 'Subjects retrieved successfully',
+            subjects: subjects
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ 
+            status: 500, 
+            message: 'Server error, please try again later' 
+        });
+    }
+};
+
+
+const handleGetNotesBySubject = async (req, res) => {
+    try {
+        const { semester, subject } = req.params;
+        const notes = await Notes.find({ semester, subject });
 
         if (notes.length === 0) {
             return res.status(404).json({
                 status: 404,
-                message: `No notes found for semester ${semester}`,
+                message: `No notes found for subject ${subject} in semester ${semester}`,
             });
         }
 
@@ -109,5 +163,7 @@ const handleGetNotesBySemester = async (req, res) => {
 module.exports = { 
     handleCreateNotes, 
     handleGetNotes,
-    handleGetNotesBySemester
+    handleGetSemesters,
+    handleGetSubjectsBySemester,
+    handleGetNotesBySubject
 };

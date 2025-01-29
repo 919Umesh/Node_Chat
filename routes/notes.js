@@ -3,8 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { authenticateToken } = require('../middlewares/authorization');
-const {  handleCreateNotes,  handleGetNotes, handleGetNotesBySemester} = require('../controllers/notes');
-
+const {  handleCreateNotes,  handleGetNotes,handleGetSemesters,handleGetSubjectsBySemester,handleGetNotesBySubject } = require('../controllers/notes');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'notes/')
@@ -35,12 +34,14 @@ router.post('/upload',
     handleCreateNotes
 );
 
-router.get('/all', 
-    handleGetNotes
-);
+router.get('/all', handleGetNotes);
 
-router.get('/semester/:semester', 
-    handleGetNotesBySemester
-);
+router.get('/semesters', handleGetSemesters);
+
+router.get('/semesters/:semester/subjects', handleGetSubjectsBySemester);
+
+router.get('/semesters/:semester/subjects/:subject/notes', handleGetNotesBySubject);
+
+
 
 module.exports = router;
