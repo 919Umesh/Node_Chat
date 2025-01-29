@@ -47,19 +47,11 @@ const handleGetAllUsers = async (req, res) => {
             });
         }
         
-        // const userProfile = users.map(user => {
-        //     return {
-        //         ...user._doc, 
-        //         profileImage: user.profileImage
-        //             ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
-        //             : null,
-        //     };
-        // });
         const userProfile = users.map(user => {
             return {
-                ...user._doc,
+                ...user._doc, 
                 profileImage: user.profileImage
-                    ? `${req.protocol}://${req.get('host')}/userProfile/${user.profileImage}`
+                    ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
                     : null,
             };
         });

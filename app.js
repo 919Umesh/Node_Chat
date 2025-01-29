@@ -7,14 +7,12 @@ const port =  4000;
 
 app.use(express.json());
 
+app.use('/userProfile', express.static('userProfile'));
 
-app.use('/userProfile', express.static(path.join(__dirname, 'userProfile')));
 
 app.use(express.urlencoded({ extended: true }));
 
-
 connectMongoDB('mongodb+srv://globaltechumesh11:E.ecAk7t.2UUuyK@projectmanage.an17y.mongodb.net/?retryWrites=true&w=majority&appName=ProjectManage');
-
 
 app.use('/users', userRouter);
 
