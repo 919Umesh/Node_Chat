@@ -89,6 +89,11 @@ const handleLoginUser = async (req, res) => {
        }
 
         const token = generateToken({ id: user._id, email: user.email });
+
+        
+         const profileImageUrl = user.profileImage
+         ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
+         : null;
         
        res.status(200).json({
         status: 200,
@@ -100,6 +105,7 @@ const handleLoginUser = async (req, res) => {
           gender: user.gender,
           age: user.age,
           address: user.address,
+          profileImage: profileImageUrl,
         },
         token,
       });
