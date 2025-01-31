@@ -8,8 +8,8 @@ const port =  4000;
 
 app.use(express.json());
 
-app.use('/userProfile', express.static('userProfile'));
-app.use('/notes', express.static('notes'));
+app.use('/userProfile', express.static(path.join(__dirname, 'userProfile')));
+app.use('/notes', express.static(path.join(__dirname, 'notes')));
 
 app.use(express.urlencoded({ extended: true }));
 
