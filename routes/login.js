@@ -8,7 +8,14 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'userProfile/'),
     filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
-const upload = multer({ storage: multer.memoryStorage()  });
+//const upload = multer({ storage });
+const upload = multer({ 
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: 10 * 1024 * 1024 
+    }
+});
 
 router.post('/createUser',upload.single('profileImage'), handleCreateUser);
 router.get('/getUsers', handleGetAllUsers); 
