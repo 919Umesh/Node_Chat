@@ -11,6 +11,7 @@ app.use(express.json());
 app.use('/userProfile', express.static(path.join(__dirname, 'userProfile')));
 app.use('/notes', express.static(path.join(__dirname, 'notes')));
 
+
 app.use(express.urlencoded({ extended: true }));
 
 connectMongoDB('mongodb+srv://globaltechumesh11:E.ecAk7t.2UUuyK@projectmanage.an17y.mongodb.net/?retryWrites=true&w=majority&appName=ProjectManage');
