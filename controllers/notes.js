@@ -52,7 +52,7 @@ const handleGetNotes = async (req, res) => {
             return {
                 ...note._doc,
                 notesFile: note.notesFile
-                    ? `${req.protocol}://${req.get('host')}/${note.notesFile.replace(/\\/g, '/')}`
+                    ? `${req.protocol}://${req.get('https://node-chat-mvlu.onrender.com')}/${note.notesFile.replace(/\\/g, '/')}`
                     : null
             };
         });
@@ -156,7 +156,7 @@ const handleGetNotesBySubject = async (req, res) => {
             return {
                 ...note._doc,
                 notesFile: note.notesFile
-                    ? `${req.protocol}://${req.get('host')}/${note.notesFile.replace(/\\/g, '/')}`
+                    ? `${req.protocol}://${req.get('https://node-chat-mvlu.onrender.com')}/${note.notesFile.replace(/\\/g, '/')}`
                     : null
             };
         });

@@ -51,7 +51,7 @@ const handleGetAllUsers = async (req, res) => {
             return {
                 ...user._doc, 
                 profileImage: user.profileImage
-                    ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
+                    ? `${req.protocol}://${req.get('https://node-chat-mvlu.onrender.com')}/${user.profileImage.replace(/\\/g, '/')}`
                     : null,
             };
         });
@@ -92,7 +92,7 @@ const handleLoginUser = async (req, res) => {
 
         
          const profileImageUrl = user.profileImage
-         ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
+         ? `${req.protocol}://${req.get('https://node-chat-mvlu.onrender.com')}/${user.profileImage.replace(/\\/g, '/')}`
          : null;
         
        res.status(200).json({
