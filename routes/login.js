@@ -4,6 +4,8 @@ const multer = require('multer');
 const { handleCreateUser, handleGetAllUsers, handleLoginUser } = require('../controllers/login');
 const { authenticateToken } = require('../middlewares/authorization');
 
+
+//Storage file
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'userProfile/'),
     filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
