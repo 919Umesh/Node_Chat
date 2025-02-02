@@ -51,7 +51,7 @@ const handleGetAllUsers = async (req, res) => {
             return {
                 ...user._doc, 
                 profileImage: user.profileImage
-                    ? `https://node-chat-mvlu.onrender.com/${user.profileImage.replace(/\\/g, '/')}`
+                    ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
                     : null,
             };
         });
@@ -90,9 +90,9 @@ const handleLoginUser = async (req, res) => {
 
         const token = generateToken({ id: user._id, email: user.email });
 
-        //Endpoint
+        
          const profileImageUrl = user.profileImage
-         ? `https://node-chat-mvlu.onrender.com/${user.profileImage.replace(/\\/g, '/')}`
+         ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
          : null;
         
        res.status(200).json({
