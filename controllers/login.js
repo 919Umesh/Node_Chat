@@ -90,7 +90,7 @@ const handleLoginUser = async (req, res) => {
 
         const token = generateToken({ id: user._id, email: user.email });
 
-        
+        //Endpoint
          const profileImageUrl = user.profileImage
          ? `https://node-chat-mvlu.onrender.com/${user.profileImage.replace(/\\/g, '/')}`
          : null;
