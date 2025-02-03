@@ -8,7 +8,7 @@ const handleCreateUser = async (req, res) => {
     try {
     
         const { name, email, password, gender, age, address } = req.body;
-        const profileImage = req.file ? `userProfile/${req.file.filename}` : null;
+        const profileImage = req.file ? req.file.path : null;
 
         if (!name || !email || !password || !gender || !age || !address) {
         return res.status(400).json({ status: 400, message: 'All fields are required' });
@@ -47,12 +47,14 @@ const handleGetAllUsers = async (req, res) => {
             });
         }
         
-        const userProfile = users.map(user => ({
-            ...user._doc,
-            profileImage: user.profileImage
-                ? `${req.protocol}://${req.get('host')}/${user.profileImage}`
-                : null,
-        }));
+        const userProfile = users.map(user => {
+            return {
+                ...user._doc, 
+                profileImage: user.profileImage
+                    ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
+                    : null,
+            };
+        });
 
         res.status(200).json({
             status: 200,
@@ -90,7 +92,7 @@ const handleLoginUser = async (req, res) => {
 
         
          const profileImageUrl = user.profileImage
-         ? `${req.protocol}://${req.get('host')}/${user.profileImage}`
+         ? `${req.protocol}://${req.get('host')}/${user.profileImage.replace(/\\/g, '/')}`
          : null;
         
        res.status(200).json({
