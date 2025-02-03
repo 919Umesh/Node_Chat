@@ -18,6 +18,7 @@
 
 // module.exports = router;
 
+
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -25,7 +26,7 @@ const fs = require('fs');
 const path = require('path');
 const { handleCreateUser, handleGetAllUsers, handleLoginUser } = require('../controllers/login');
 
-// Ensure 'userProfile/' directory exists
+// Ensure the directory exists
 const uploadDir = path.join(__dirname, '../userProfile');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
@@ -44,3 +45,4 @@ router.get('/getUsers', handleGetAllUsers);
 router.post('/loginUser', handleLoginUser);
 
 module.exports = router;
+
