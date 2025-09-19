@@ -11,12 +11,12 @@ const handleCreateUser = async (req, res) => {
         let profileImage = null;
 
         // Check if a file was uploaded
-        if (req.file) {
-            const filePath = req.file.path;
-            const fileData = fs.readFileSync(filePath); // Read the file into memory
-            profileImage = fileData; // Store the binary data in the profileImage field
-            fs.unlinkSync(filePath); // Optionally delete the file from the file system after reading it
-        }
+        // if (req.file) {
+        //     const filePath = req.file.path;
+        //     const fileData = fs.readFileSync(filePath); // Read the file into memory
+        //     profileImage = fileData; // Store the binary data in the profileImage field
+        //     fs.unlinkSync(filePath); // Optionally delete the file from the file system after reading it
+        // }
 
         if (!name || !email || !password || !gender || !age || !address) {
         return res.status(400).json({ status: 400, message: 'All fields are required' });
